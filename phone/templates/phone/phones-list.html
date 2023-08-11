@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>phone list</title>
+    <style>
+      #customers {
+        font-family: Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+      
+      #customers td,
+      #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+        direction: rtl;
+      }
+      
+      #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+        direction: rtl;
+      }
+      
+      #customers tr:hover {
+        background-color: #ddd;
+      }
+      
+      #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: right;
+        background-color: #1e3c82;
+        color: white;
+      }
+      .form {
+        margin: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="form">
+      <form action="{% url 'phone-list-page' %}" method="get" dir="rtl">
+
+        <label for="">نام برند یا مدل گوشی را وارد بکنید:</label>
+        <input type="text" name="brand_things" id="brand_things" />
+        
+        <label for="nationality">ملیت برند را انتخاب بکنید:</label>
+        <select name="nationality" id="nationality">
+          <option disabled selected value> -- لطفا یک گزینه انتخاب بکنید -- </option>
+          {% for national in nationals %}
+            <option value="{{ national }}">{{ national }}</option>
+          {% endfor %}
+        </select>
+
+        <label for="same_nationality">ملیت با کشور یکی است:</label>
+        <input type="checkbox" name="same_nationality" id="same_nationality" />
+        
+        <label for="availability"> فقط گوشی های که موجود هستند </label>
+        <input type="checkbox" name="availability" id="availability" />
+        
+        <button type="submit"> فیلتر </button>
+
+      </form>
+    </div>
+
+
+
+    <table id="customers">
+      <tr>
+        <th>تعداد</th>
+        <th>کشور سازنده</th>
+        <th>وضعیت</th>
+        <th>سایز صفحه نمایش</th>
+        <th>رنگ</th>
+        <th>قیمت</th>
+        <th>ملیت برند</th>
+        <th>نام برند</th>
+        <th>مدل گوشی</th>
+      </tr>
+      
+      {% for phone in phones %}
+        <tr>
+          <td>{{ phone.count }}</td>
+          <td>{{ phone.creator_country }}</td>
+          <td>
+            
+            {% if phone.availability  %}
+              موجود
+            {% else %}
+              ناموجود
+            {% endif %}
+              
+          </td>
+          <td>{{ phone.phone_size }}</td>
+          <td>{{ phone.color }}</td>
+          <td>{{ phone.price }}</td>
+          <td>{{ phone.phone_brand.brand_national }}</td>
+          <td>{{ phone.phone_brand }}</td>
+          <td>{{ phone.phone_model }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>
