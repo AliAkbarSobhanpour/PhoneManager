@@ -1,8 +1,10 @@
 from django.views.generic.list import ListView
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import PhoneModel
 from django.core.exceptions import ValidationError
 from django.db.models import F, Q
+from .forms import PhoneForm, BrandForm
+
 # Create your views here.
 
 
@@ -66,3 +68,25 @@ class PhoneListView(ListView):
         return context
     
     
+
+def phone_form_view(request):
+    form = PhoneForm()
+    if request.method == "POST":
+        form = PhoneForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("phone-list-page")
+        else: 
+            form = PhoneForm()
+    return render(request, "phone/phone-form.html", {"form": form})
+
+def brand_form_view(request):
+    form = BrandForm()
+    if request.method == "POST":
+        form = BrandForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect("phone-form-page")
+        else: 
+            form = BrandForm()
+    return render(request, "phone/brand-form.html", {"form": form})
