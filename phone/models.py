@@ -7,15 +7,15 @@ class PhoneModel(models.Model):
     phone_brand = models.ForeignKey('Brand', on_delete=models.CASCADE, verbose_name="برند")
     phone_model = models.CharField("مدل تلفن همراه", max_length=300 ,unique=True)
     price = models.IntegerField("قیمت", default=0, validators=[
-        MinValueValidator(0, "مقدار مورد نظر باید بیشتر از 0 باشد")
+        MinValueValidator(1, "قیمت را به درستی وارد بکنید")
     ])
     color = models.CharField("رنگ محصول",max_length=200)
     phone_size = models.FloatField("سایز گوشی همراه", default=0, validators=[
-        MinValueValidator(0, "مقدار مورد نظر باید بیشتر از 0 باشد.")
+        MinValueValidator(1, " اندازه صفحه نمایش را به درستی وارد کنید ")
     ])
     availability = models.BooleanField("موجود", default=False)
     count = models.IntegerField("تعداد",blank=True, default=0, validators=[
-        MinValueValidator(0, "مقدار مورد نظر باید بیشتر از 0 باشد")
+        MinValueValidator(0, "تعداد گوشی ها را به درستی وارد بکنید")
     ])
         
     creator_country = CountryField("کشورسازنده")

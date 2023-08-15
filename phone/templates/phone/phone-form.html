@@ -21,7 +21,7 @@
             border: 1px solid gray;
             border-radius: 10px;
         }
-        .varning {
+        .warning {
             background-color: #cc5c67;
             border: 1px solid red;
             border-radius: 10px;
@@ -44,15 +44,12 @@
             
             {% csrf_token %}
             
-            <div class="varning">
-                {{ form.errors }}
-            </div>
-            {% if non_field_errors %}
-            <div class="error">
-                {% for error in non_field_errors %}
+            {% if form.errors %}
+                <div class="warning">
+                   {% for error in errors %}
                     {{ error }}
-                {% endfor %}
-            </div>
+                   {% endfor %}
+                </div>
             {% endif %}
 
             <div class="form-group">

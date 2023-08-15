@@ -78,7 +78,10 @@ def phone_form_view(request):
     else:
         
         form = PhoneForm()
-    return render(request, "phone/phone-form.html", {"form": form})
+    all_errors = []
+    for field , errors in form.errors.items():
+        all_errors.append(errors)
+    return render(request, "phone/phone-form.html", {"form": form, "errors": all_errors})
 
 def brand_form_view(request):
     if request.method == "POST":
@@ -88,4 +91,8 @@ def brand_form_view(request):
             return redirect("phone-form-page")
     else:
         form = BrandForm()
-    return render(request, "phone/brand-form.html", {"form": form})
+    all_errors = []
+    for field, errors in form.errors.items():
+        all_errors.append(errors)
+        
+    return render(request, "phone/brand-form.html", {"form": form, "errors": all_errors})
