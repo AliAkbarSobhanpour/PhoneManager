@@ -19,7 +19,14 @@
         }
         form {
             border: 1px solid gray;
-            border-radius: 15px;
+            border-radius: 10px;
+        }
+        .varning {
+            background-color: #cc5c67;
+            border: 1px solid red;
+            border-radius: 10px;
+            margin: 5px;
+            padding: 2px;
         }
     </style>
 </head>
@@ -34,8 +41,20 @@
 
     <div class="form" dir="rtl">
         <form method="post" action="{% url 'phone-form-page' %}">
-     
+            
             {% csrf_token %}
+            
+            <div class="varning">
+                {{ form.errors }}
+            </div>
+            {% if non_field_errors %}
+            <div class="error">
+                {% for error in non_field_errors %}
+                    {{ error }}
+                {% endfor %}
+            </div>
+            {% endif %}
+
             <div class="form-group">
                 {{ form.phone_brand.label }}
                 {{ form.phone_brand }}
@@ -75,4 +94,19 @@
         </form>
     </div>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var countField = document.querySelector('#id_count');
+        countField.closest('.form-group').style.display = 'none';
+        var availabilityCheckbox = document.querySelector('#id_availability');
+        availabilityCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                countField.closest('.form-group').style.display = 'block';
+            } else {
+                countField.closest('.form-group').style.display = 'none';
+            }
+        });
+    });
+    </script>
+    
 </html>

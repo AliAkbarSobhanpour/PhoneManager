@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # external fields 
+    'django_countries.fields',
+    
     # created apps 
     
     "phone.apps.PhoneConfig",

@@ -1,5 +1,6 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from django_countries.fields import CountryField
 # Create your models here.
 
 class PhoneModel(models.Model):
@@ -17,7 +18,7 @@ class PhoneModel(models.Model):
         MinValueValidator(0, "مقدار مورد نظر باید بیشتر از 0 باشد")
     ])
         
-    creator_country = models.CharField("کشور سازنده", max_length=300)
+    creator_country = CountryField("کشورسازنده")
 
     
     def __str__(self):
@@ -31,7 +32,7 @@ class PhoneModel(models.Model):
 
 class Brand(models.Model):
     brand_name = models.CharField("نام برند" ,max_length=300)
-    brand_national = models.CharField("ملیت برند", max_length=300)
+    brand_national = CountryField("ملیت برند")
     
     
     def __str__(self):
