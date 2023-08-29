@@ -50,6 +50,7 @@ class BrandForm(forms.ModelForm):
         model = Brand
         fields = "__all__"
 
+    
     def clean(self):
         cleaned_data = super().clean()
         

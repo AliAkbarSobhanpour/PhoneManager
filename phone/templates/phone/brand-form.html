@@ -6,62 +6,87 @@
     <title>Document</title>
 
     <style>
-        .form-group{
-            margin: 10px;
-        }
-        .form, .header {
-            display: grid;
-            place-items: center;
-            height: 50%;
-        }
-        form {
-            border: 1px solid gray;
-            border-radius: 10px;
-        }
-        .warning {
-            background-color: #cc5c67;
-            border: 1px solid red;
-            border-radius: 10px;
-            margin: 5px;
-            padding: 2px;
-        }
+
+            .container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                direction: rtl;
+            }
+
+            .center {
+                width: 30%;
+                padding: 20px;
+                border: 2px solid green;
+                border-radius: 10px;
+            }
+
+            .warning {
+                border : 1px solid red;
+                background-color: rgb(201, 70, 70);
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .form-control{
+                display: flex;
+                margin-bottom: 10px;
+            }
+
+            input {
+                flex: 2;
+                padding: 5px;
+                border: 1px solid green;
+                border-radius: 5px;
+            }
+
+            #id_brand_national {
+                flex: 2;
+                padding: 5px;
+                border: 1px solid green;
+                border-radius: 5px;
+            }
+            .form-button {
+                display: flex;
+                justify-content: flex-end;
+            }
+
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 dir="rtl">
-          برند جدید را وارد بکنید      
-        </h1>
-    </div>
+    <div class="container">
+        <div class="title">
+            <h2>برند جدید را وارد بکنید </h2>
+        </div>
 
-    <div class="form" dir="rtl">
-        <form action="{% url 'brand-form-page' %}" method="post">
-            {% csrf_token %}
-            <div class="form-group">
-
-                {% if form.errors %}
-                    <div class="warning">
-                        {% for error in errors %}
-                            {{ error }}
-                        {% endfor %}
+        <div class="center">
+            <form action="{% url 'brand-form-page' %}" method="post">
+                {% csrf_token %}
+    
+                    {% if form.errors %}
+                        <div class="warning">
+                            {% for error in errors %}
+                                {{ error }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+    
+                    <div class="form-control">
+                        {{ form.brand_name.label }}
+                        {{ form.brand_name }}
                     </div>
-                {% endif %}
-
-                <div class="form-group">
-                    {{ form.brand_name.label }}
-                    {{ form.brand_name }}
+                    
+                    <div class="form-control">
+                        {{ form.brand_national.label }}
+                        {{ form.brand_national }}
+                    </div>
+                <div class="form-control form-button">
+                    <button type="submit">ثبت</button>
                 </div>
-                
-                <div class="form-group">
-                    {{ form.brand_national.label }}
-                    {{ form.brand_national }}
-                </div>
-
-
-            </div>
-            
-            <button type="submit" style="margin-right: 45%; margin-bottom: 10px;">ثبت</button>
-        </form>
+            </form>
+        </div>
     </div>
 </body>
 </html>
