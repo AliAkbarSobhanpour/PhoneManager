@@ -6,101 +6,144 @@
     <title>Document</title>
 
     <style>
-        .form-group{
-            margin: 10px;
-            width: 100%;
-        }
-        .form, .header {
-            display: grid;
-            place-items: center;
-            height: 50%;
-            grid-template-columns: 1fr;
 
-        }
-        form {
-            border: 1px solid gray;
-            border-radius: 10px;
-        }
-        .warning {
-            background-color: #cc5c67;
-            border: 1px solid red;
-            border-radius: 10px;
-            margin: 5px;
-            padding: 2px;
-        }
+
+.container {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                direction: rtl;
+            }
+
+            .center {
+                width: 30%;
+                padding: 20px;
+                border: 2px solid green;
+                border-radius: 10px;
+            }
+
+            .warning {
+                border : 1px solid red;
+                background-color: rgb(201, 70, 70);
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .form-control{
+                display: flex;
+                margin-bottom: 10px;
+            }
+
+            input {
+                flex: 2;
+                padding: 5px;
+                border: 1px solid green;
+                border-radius: 5px;
+                margin-right: 5px;
+            }
+
+            select {
+                flex: 2;
+                padding: 5px;
+                border: 1px solid green;
+                border-radius: 5px;
+                margin-right: 5px;
+            }
+            .form-button {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .form-button button:hover {
+                border-radius: 10px;
+                border-color: green;
+                color:green
+            }
+
+            .form-button button {
+                border-radius: 10px;
+                width: 120px;
+                height: 35px;
+            }
+
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1 dir="rtl">
-            محصول جدید را اضافه کنید
-        </h1>
-    </div>
-
-
-
-    <div class="form" dir="rtl">
-        <form method="post" action="{% url 'phone-form-page' %}">
+    
+    <div class="container">
+        <div class="title">
+            <h2>لطفا محصول جدید را وارد بکنید</h2>
+        </div>
+        <div class="center">
+            <form method="post" action="{% url 'phone-form-page' %}">
             
-            {% csrf_token %}
-            
-            {% if form.errors %}
-                <div class="warning">
-                   {% for error in errors %}
-                    {{ error }}
-                   {% endfor %}
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                    <div class="warning">
+                       {% for error in errors %}
+                        {{ error }}
+                       {% endfor %}
+                    </div>
+                {% endif %}
+    
+                <div class="form-control">
+                    {{ form.phone_brand.label }}
+                    {{ form.phone_brand }}
+                    <div class="form-button">
+                        <button><a href="{% url 'brand-form-page' %}">ساخت برند جدید</a></button>
+                    </div>
                 </div>
-            {% endif %}
-
-            <div class="form-group">
-                {{ form.phone_brand.label }}
-                {{ form.phone_brand }}
-                <button><a href="{% url 'brand-form-page' %}">ساخت برند جدید</a></button>
-            </div>
-            <div class="form-group">
-                {{ form.phone_model.label }}
-                {{ form.phone_model }}
-            </div>
-            <div class="form-group">
-                {{ form.price.label }}
-                {{ form.price }}
-            </div>
-            <div class="form-group">
-                {{ form.color.label }}
-                {{ form.color }}
-            </div>
-            <div class="form-group">
-                {{ form.phone_size.label }}
-                {{ form.phone_size }}
-            </div>
-            <div class="form-group">
-                {{ form.availability.label }}
-                {{ form.availability }}
-            </div>
-            
-            <div class="form-group">
-                {{ form.count.label }}
-                {{ form.count }}    
-            </div>
-            <div class="form-group">
-                {{ form.creator_country.label }}
-                {{ form.creator_country }}
-            </div>
-            
-            <button type="submit" style="margin-right: 45%; margin-bottom: 10px;">ثبت</button>
-        </form>
+                <div class="form-control">
+                    {{ form.phone_model.label }}
+                    {{ form.phone_model }}
+                </div>
+                <div class="form-control">
+                    {{ form.price.label }}
+                    {{ form.price }}
+                </div>
+                <div class="form-control">
+                    {{ form.color.label }}
+                    {{ form.color }}
+                </div>
+                <div class="form-control">
+                    {{ form.phone_size.label }}
+                    {{ form.phone_size }}
+                </div>
+                <div class="form-control">
+                    {{ form.availability.label }}
+                    {{ form.availability }}
+                </div>
+                
+                <div class="form-control">
+                    {{ form.count.label }}
+                    {{ form.count }}    
+                </div>
+                <div class="form-control">
+                    {{ form.creator_country.label }}
+                    {{ form.creator_country }}
+                </div>
+                
+                <div class="form-button">
+                    <button type="submit" style="margin-right: 45%; margin-bottom: 10px;">ثبت</button>
+                </div>
+            </form>
+        </div>
     </div>
+
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         var countField = document.querySelector('#id_count');
-        countField.closest('.form-group').style.display = 'none';
+        countField.closest('.form-control').style.display = 'none';
         var availabilityCheckbox = document.querySelector('#id_availability');
         availabilityCheckbox.addEventListener('change', function() {
             if (this.checked) {
-                countField.closest('.form-group').style.display = 'block';
+                countField.closest('.form-control').style.display = 'block';
             } else {
-                countField.closest('.form-group').style.display = 'none';
+                countField.closest('.form-control').style.display = 'none';
             }
         });
     });
