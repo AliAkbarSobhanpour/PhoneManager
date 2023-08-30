@@ -69,6 +69,7 @@
 
     <table id="customers">
       <tr>
+        <th>جمع کل قیمت</th>
         <th>تعداد</th>
         <th>کشور سازنده</th>
         <th>وضعیت</th>
@@ -82,6 +83,7 @@
       
       {% for phone in phones %}
         <tr>
+          <td>{{ phone.total_price}}</td>
           <td>{{ phone.count }}</td>
           <td>{{ phone.creator_country.name }}</td>
           <td>
@@ -99,6 +101,7 @@
           <td>{{ phone.phone_brand.brand_national.name }}</td>
           <td>{{ phone.phone_brand }}</td>
           <td>{{ phone.phone_model }}</td>
+
         </tr>
       {% endfor %}
     </table>

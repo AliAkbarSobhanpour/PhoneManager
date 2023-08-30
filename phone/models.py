@@ -20,6 +20,13 @@ class PhoneModel(models.Model):
         
     creator_country = CountryField("کشورسازنده")
 
+    total_price = models.IntegerField("جمع قیمت محصولات", validators=[
+        MinValueValidator(0, "قیمت کل را به درستی وارد بکنید ")
+    ])
+
+    def save(self, *args, **kwargs):
+        self.total_price = self.price * self.count
+        super(PhoneModel, self).save(*args, **kwargs)
     
     def __str__(self):
         return self.phone_model
