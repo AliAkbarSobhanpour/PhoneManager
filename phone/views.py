@@ -1,10 +1,11 @@
 from django.views.generic.list import ListView
 from django.shortcuts import redirect, render
-from .models import PhoneModel
+from .models import PhoneModel, Brand
 from django.core.exceptions import ValidationError
 from django.db.models import F, Q
 from .forms import PhoneForm, BrandForm
-
+from rest_framework import viewsets
+from .serializers import PhoneModelSerializer, BrandSerializer
 # Create your views here.
 
 
@@ -96,3 +97,8 @@ def brand_form_view(request):
         all_errors.append(errors)
         
     return render(request, "phone/brand-form.html", {"form": form, "errors": all_errors})
+
+
+class PhoneModelViewSet(viewsets.ModelViewSet):
+    queryset = PhoneModel.objects.all()
+    serializer_class = PhoneModelSerializer

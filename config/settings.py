@@ -40,12 +40,17 @@ INSTALLED_APPS = [
     
     # external fields 
     'django_countries.fields',
-    
+    "rest_framework",
     # created apps 
     
     "phone.apps.PhoneConfig",
     "user.apps.UserConfig",
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
