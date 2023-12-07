@@ -6,13 +6,19 @@ from django.db.models import F, Q
 from .forms import PhoneForm, BrandForm
 from rest_framework import viewsets
 from .serializers import PhoneModelSerializer, BrandSerializer
+from django_tables2 import SingleTableView
+from django_tables2 import RequestConfig
+
+from .tables import PhoneTable
 # Create your views here.
 
 
-class PhoneListView(ListView):
+class PhoneListView(SingleTableView):
     model = PhoneModel
-    context_object_name="phones"
-    template_name='phone/phones-list.html'
+    table_class = PhoneTable
+    context_object_name = "phones"
+    template_name = 'phone/phones-list.html'
+    paginate_by = 5
     
     def get_queryset(self):
         queryset = super().get_queryset()
@@ -53,21 +59,22 @@ class PhoneListView(ListView):
         
             
         
-        
-        print(self.request.GET)    
+
         return queryset
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         
-        # get nationality's and send it to template ------------------------------------------------------------------------+
+        # get nationality's and send it to template
+        # ------------------------------------------------------------------------+
         
         list_national = set([x.phone_brand.brand_national for x in PhoneModel.objects.all()])
         context["nationals"] = list_national
         
-        # end ---------------------------------------------------------------------------------------------------------------
+        # end
+        # ---------------------------------------------------------------------------------------------------------------
+
         return context
-    
     
 
 def phone_form_view(request):

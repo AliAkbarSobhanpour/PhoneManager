@@ -1,3 +1,4 @@
+{% load render_table from django_tables2 %}
 <!DOCTYPE html>
 <html>
   <head>
@@ -36,6 +37,7 @@
         margin: 20px;
       }
     </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
   </head>
   <body>
     <div class="form">
@@ -66,44 +68,6 @@
 
     <button> <a href="{% url 'phone-form-page' %}">اضافه کردن محصول جدید</a> </button>
 
-
-    <table id="customers">
-      <tr>
-        <th>جمع کل قیمت</th>
-        <th>تعداد</th>
-        <th>کشور سازنده</th>
-        <th>وضعیت</th>
-        <th>سایز صفحه نمایش</th>
-        <th>رنگ</th>
-        <th>قیمت</th>
-        <th>ملیت برند</th>
-        <th>نام برند</th>
-        <th>مدل گوشی</th>
-      </tr>
-      
-      {% for phone in phones %}
-        <tr>
-          <td>{{ phone.total_price}}</td>
-          <td>{{ phone.count }}</td>
-          <td>{{ phone.creator_country.name }}</td>
-          <td>
-            
-            {% if phone.availability  %}
-              موجود
-            {% else %}
-              ناموجود
-            {% endif %}
-              
-          </td>
-          <td>{{ phone.phone_size }}</td>
-          <td>{{ phone.color }}</td>
-          <td>{{ phone.price }}</td>
-          <td>{{ phone.phone_brand.brand_national.name }}</td>
-          <td>{{ phone.phone_brand }}</td>
-          <td>{{ phone.phone_model }}</td>
-
-        </tr>
-      {% endfor %}
-    </table>
+    {% render_table table %}
   </body>
 </html>

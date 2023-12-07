@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # external fields 
     'django_countries.fields',
     "rest_framework",
+    'django_tables2',
     # created apps 
     
     "phone.apps.PhoneConfig",
