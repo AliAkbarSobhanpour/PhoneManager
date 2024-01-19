@@ -7,7 +7,7 @@ class PhoneAdmin(admin.ModelAdmin):
     list_display = ["phone_model", "phone_brand"]
     
     class Media:
-        js = ["js/custom-user.js", ]
+        js = ["js/custom-admin.js", ]
     
     
 @admin.register(Brand)

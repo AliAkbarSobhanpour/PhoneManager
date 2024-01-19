@@ -18,7 +18,9 @@ class PhoneListView(SingleTableView):
     table_class = PhoneTable
     context_object_name = "phones"
     template_name = 'phone/phones-list.html'
-    paginate_by = 5
+    table_pagination = {
+        'per_page': 5
+    }
     
     def get_queryset(self):
         queryset = super().get_queryset()
